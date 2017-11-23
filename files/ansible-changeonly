@@ -1,0 +1,56 @@
+#!/usr/bin/awk -f
+# Remove skipped lines from ansible output
+# Do only print plays and tasks with changes
+#
+# To see colors, use:
+# export ANSIBLE_FORCE_COLOR=true
+#
+# To see warnings:
+# ansible-playbook site.yml 2>&1 | ansible-changeonly
+#
+# If you don't want to see warning:
+# ansible-playbook site.yml 2>/dev/null | ansible-changeonly
+#
+# Mail all potential problems to root:
+# ansible-playbook site.yml --check 2>&1 | ansible-changeonly | mail -E -s "Ansible not idempotent" root
+#
+
+# remember last TASK or HANDLER line
+/^TASK/                  { TL=$0; next }
+/^RUNNING HANDLER/       { TL=$0; next }
+
+# remember PLAY line, forget last TASK 
+/^PLAY /        { PL=$0; TL=""; next }
+
+# skip all uninteresting lines
+/^skipping: /      { next }
+/^diff skipped: /  { next }
+/^ok: \[/          { next }
+/^included: /      { next }
+/changed=0/        { next }
+/to retry, use/    { next }
+# any color code as regexp \x1b\[[0-9;]*m
+/^\x1b\[[0-9;]*mskipping: /      { next }
+/^\x1b\[[0-9;]*mdiff skipped: /  { next }
+/^\x1b\[[0-9;]*mok: \[/          { next }
+/^\x1b\[[0-9;]*mincluded: /      { next }
+# remove empty lines
+/^$/               { next }
+
+{
+  # print PLAY line once
+  if ( PL != "" ) {
+    print ""
+    print PL
+    PL=""
+  }
+  # print TASK line once
+  if ( TL != "" ) {
+    print ""
+    print TL
+    TL=""
+  }
+  # print changed line
+  print
+}
+
