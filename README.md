@@ -13,7 +13,7 @@ Install ansible-changeonly
 # To see warnings:
 # ansible-playbook site.yml 2>&1 | ansible-changeonly
 #
-# If you don't want to see warning:
+# If you don't want to see warnings:
 # ansible-playbook site.yml 2>/dev/null | ansible-changeonly
 #
 # Mail all potential problems to root:
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: t2d.changeonly, tags:[ansible,changeonly] }
+         - { role: t2d.changeonly, tags: [ansible,changeonly] }
 
 License
 -------

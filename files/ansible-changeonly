@@ -8,7 +8,7 @@
 # To see warnings:
 # ansible-playbook site.yml 2>&1 | ansible-changeonly
 #
-# If you don't want to see warning:
+# If you don't want to see warnings:
 # ansible-playbook site.yml 2>/dev/null | ansible-changeonly
 #
 # Mail all potential problems to root:
