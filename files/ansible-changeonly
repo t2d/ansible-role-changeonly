@@ -27,7 +27,8 @@
 /^diff skipped: /  { next }
 /^ok: \[/          { next }
 /^included: /      { next }
-/changed=0/        { next }
+# endings
+/changed=0    unreachable=0    failed=0/        { next }
 /to retry, use/    { next }
 # any color code as regexp \x1b\[[0-9;]*m
 /^\x1b\[[0-9;]*mskipping: /      { next }
