@@ -3,7 +3,7 @@
 
 - name: Install awk
   apt:
-    name: awk
+    name: mawk
     state: present
 
 - name: Copy ansible-changeonly
