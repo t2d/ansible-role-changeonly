@@ -2,8 +2,9 @@
 # tasks file for ansible-changeonly
 
 - name: Install awk
-  apt: awk
-  state: present
+  apt:
+    name: awk
+    state: present
 
 - name: Copy ansible-changeonly
   copy:

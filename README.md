@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: t2d.changeonly, x: 42 }
+         - { role: t2d.changeonly, tags:[ansible,changeonly] }
 
 License
 -------
